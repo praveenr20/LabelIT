@@ -1,0 +1,139 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Luck.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="jquery.ui.combined" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">
+                        <a runat="server" href="~/">
+
+                            <img src="Images/logo-apple-picture.jpg" height="100px" width="120px" />
+                        </a>
+                    </p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        <asp:LoginView runat="server" ID="LoginView1" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul>
+                                    <%--<li><a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a></li>--%>
+                                    <%if (Session["User"] == null)
+                                      { %>
+                                    <li><a id="loginLink" runat="server" href="~/Login.aspx">Log in</a></li>
+                                    <% }%>
+                                    <%else
+                                      { %>
+
+                                    <asp:Label ID="lable_UserName" runat="server" Font-Bold="true" ForeColor="Blue"></asp:Label>
+                                    <%--     <li><a id="A1" runat="server" style="font-family: Aharoni" href="~/Logout.aspx">Logout</a></li>--%>
+                                    <li>
+                                        <asp:Button ID="button_Logout" runat="server" Font-Bold="true" Text="Logout" OnClick="button_Logout_Click" />
+                                    </li>
+                                    <% }%>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <p>
+                                    Hello, <a runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
+                                        <asp:LoginName runat="server" CssClass="username" />
+                                    </a>!
+                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                                </p>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </section>
+                    <nav>
+                        <%if (Session["User"] != null)
+                          { %>
+                        <%--<ul id="menu">
+                            <li><a runat="server" href="~/">Home</a>
+                            </li>
+                            <li><a runat="server" href="~/About.aspx">About</a></li>
+                            <li><a runat="server" href="~/Contact.aspx">Contact</a></li>
+                            <li><a runat="server" href="~/AddCashier.aspx">Add Cashier</a></li>
+                        </ul>--%>
+
+                        <asp:Menu ID="Menu1" runat="server" BackColor="#E3EAEB" DynamicHorizontalOffset="2" Font-Bold="True" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#666666" Orientation="Horizontal" StaticSubMenuIndent="10px">
+                            <DynamicHoverStyle BackColor="#666666" ForeColor="White" />
+                            <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                            <DynamicMenuStyle BackColor="#E3EAEB" />
+                            <DynamicSelectedStyle BackColor="#1C5E55" />
+                            <Items>
+                                <asp:MenuItem NavigateUrl="~/Default.aspx" Text="  Home" Value="Home">
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu1" Value="Menu1"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu2" Value="Menu2"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu3" Value="Menu3"></asp:MenuItem>
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/About.aspx" Text="  About Us" Value="About Us">
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu1" Value="Menu1"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu2" Value="Menu2"></asp:MenuItem>
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/AddCashier.aspx" Text="  Add Cashier" Value="Add Cashier">
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu1" Value="Menu1"></asp:MenuItem>
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Contact.aspx" Text="  Contact Us" Value="Contact Us">
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu1" Value="Menu1"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="#" Text="Menu2" Value="Menu2"></asp:MenuItem>
+                                </asp:MenuItem>
+                            </Items>
+                            <StaticHoverStyle BackColor="#666666" ForeColor="White" />
+                            <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                            <StaticSelectedStyle BackColor="#1C5E55" />
+                        </asp:Menu>
+
+                        <%} %>
+                    </nav>
+
+
+
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+            <section class="content-wrapper main-content clear-fix">
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

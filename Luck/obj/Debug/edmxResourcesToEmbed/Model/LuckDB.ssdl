@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TestDBModelStoreContainer">
+    <EntitySet Name="ADMINS" EntityType="TestDBModel.Store.ADMINS" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="ADMINS">
+    <Key>
+      <PropertyRef Name="ADMIN_ID" />
+    </Key>
+    <Property Name="ADMIN_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LOGIN" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="PASSWORD" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="EMAIL" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="LAST_NAME" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="IS_INTERNAL" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <Function Name="IsValidUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Login" Type="nvarchar" Mode="In" />
+    <Parameter Name="Pass" Type="nvarchar" Mode="In" />
+  </Function>
+</Schema>
